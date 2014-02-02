@@ -8,4 +8,5 @@ if not exist ..\current_version mkdir ..\current_version
 move BuyVMServerInterface.jar ..\current_version
 if not exist ..\current_version\lib mkdir ..\current_version\lib
 copy ..\..\Updater\output\Updater.jar ..\current_version\lib
+copy ..\..\..\LICENSE.txt ..\current_version\
 pause

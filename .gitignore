@@ -4,5 +4,5 @@
 /.project
 /.classpath
 /classes
-/output
 /infoFile.txt
+/current_version
