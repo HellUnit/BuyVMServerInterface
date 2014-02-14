@@ -12,6 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.WindowConstants;
 
 import org.blazr.Updater.main.java.DownloadOptionDialog;
 import org.blazr.Updater.main.java.Updater;
@@ -21,27 +22,27 @@ public class AboutDialog extends JDialog {
 	 * 
 	 */
 	private static final long serialVersionUID = 5056490909773447815L;
-	private final JTextField txtHttpblazrnoiporg;
-	private final JTextField txtHttpblazrnoiporgjavaappslicensehtml;
-	private final JButton btnNewButton;
-
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	public static void main(final String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			@Override
 			public void run() {
 				try {
-					AboutDialog dialog = new AboutDialog();
-					dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+					final AboutDialog dialog = new AboutDialog();
+					dialog.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 					dialog.setVisible(true);
-				} catch (Exception e) {
+				} catch (final Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});
 	}
+	private final JTextField txtHttpblazrnoiporg;
+	private final JTextField txtHttpblazrnoiporgjavaappslicensehtml;
+
+	private final JButton btnNewButton;
 
 	/**
 	 * Create the dialog.
@@ -54,61 +55,62 @@ public class AboutDialog extends JDialog {
 		setBounds(100, 100, 450, 335);
 		getContentPane().setLayout(null);
 
-		JPanel panel = new JPanel();
+		final JPanel panel = new JPanel();
 		panel.setBounds(0, 0, 444, 302);
 		getContentPane().add(panel);
 		panel.setLayout(null);
 
-		JLabel lblBuyVmServer = new JLabel("BuyVM Server Interface v"
+		final JLabel lblBuyVmServer = new JLabel("BuyVM Server Interface v"
 				+ MainWindow.version);
 		lblBuyVmServer.setBounds(12, 13, 374, 27);
 		panel.add(lblBuyVmServer);
 
-		JLabel lblDevelopedByAntony = new JLabel("Developed By Antony Prince");
+		final JLabel lblDevelopedByAntony = new JLabel("Developed By Antony Prince");
 		lblDevelopedByAntony.setBounds(12, 53, 374, 27);
 		panel.add(lblDevelopedByAntony);
 
-		JLabel lblCopyrightc = new JLabel("Copyright (c) 2014");
+		final JLabel lblCopyrightc = new JLabel("Copyright (c) 2014");
 		lblCopyrightc.setBounds(12, 93, 374, 27);
 		panel.add(lblCopyrightc);
 
-		txtHttpblazrnoiporg = new JTextField();
-		txtHttpblazrnoiporg.setFont(new Font("Tahoma", Font.BOLD, 13));
-		txtHttpblazrnoiporg.setBorder(null);
-		txtHttpblazrnoiporg.setEditable(false);
-		txtHttpblazrnoiporg.setText("http://blazr.no-ip.org");
-		txtHttpblazrnoiporg.setBounds(12, 133, 374, 27);
-		panel.add(txtHttpblazrnoiporg);
-		txtHttpblazrnoiporg.setColumns(10);
+		this.txtHttpblazrnoiporg = new JTextField();
+		this.txtHttpblazrnoiporg.setFont(new Font("Tahoma", Font.BOLD, 13));
+		this.txtHttpblazrnoiporg.setBorder(null);
+		this.txtHttpblazrnoiporg.setEditable(false);
+		this.txtHttpblazrnoiporg.setText("http://blazr.no-ip.org");
+		this.txtHttpblazrnoiporg.setBounds(12, 133, 374, 27);
+		panel.add(this.txtHttpblazrnoiporg);
+		this.txtHttpblazrnoiporg.setColumns(10);
 
-		JLabel lblDistributedUnderThe = new JLabel(
+		final JLabel lblDistributedUnderThe = new JLabel(
 				"Distributed under the license found here:");
 		lblDistributedUnderThe.setBounds(12, 173, 374, 27);
 		panel.add(lblDistributedUnderThe);
 
-		txtHttpblazrnoiporgjavaappslicensehtml = new JTextField();
-		txtHttpblazrnoiporgjavaappslicensehtml.setFont(new Font("Tahoma",
+		this.txtHttpblazrnoiporgjavaappslicensehtml = new JTextField();
+		this.txtHttpblazrnoiporgjavaappslicensehtml.setFont(new Font("Tahoma",
 				Font.BOLD, 13));
-		txtHttpblazrnoiporgjavaappslicensehtml.setBorder(null);
-		txtHttpblazrnoiporgjavaappslicensehtml.setEditable(false);
-		txtHttpblazrnoiporgjavaappslicensehtml
+		this.txtHttpblazrnoiporgjavaappslicensehtml.setBorder(null);
+		this.txtHttpblazrnoiporgjavaappslicensehtml.setEditable(false);
+		this.txtHttpblazrnoiporgjavaappslicensehtml
 				.setText("http://blazr.no-ip.org/Java_Apps/license.html");
-		txtHttpblazrnoiporgjavaappslicensehtml.setBounds(12, 213, 374, 27);
-		panel.add(txtHttpblazrnoiporgjavaappslicensehtml);
-		txtHttpblazrnoiporgjavaappslicensehtml.setColumns(10);
+		this.txtHttpblazrnoiporgjavaappslicensehtml.setBounds(12, 213, 374, 27);
+		panel.add(this.txtHttpblazrnoiporgjavaappslicensehtml);
+		this.txtHttpblazrnoiporgjavaappslicensehtml.setColumns(10);
 
-		btnNewButton = new JButton("Check for update");
-		btnNewButton.addActionListener(new ActionListener() {
+		this.btnNewButton = new JButton("Check for update");
+		this.btnNewButton.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent arg0) {
+			public void actionPerformed(final ActionEvent arg0) {
 				try {
 					@SuppressWarnings("unused")
+					final
 					Updater updater = new Updater(
 							MainWindow.version,
 							"BuyVMServerInterface",
 							"http://blazr.no-ip.org/Java_Apps/BuyVMServerInterface/",
 							"http://blazr.no-ip.org/versions/", false);
-				} catch (MalformedURLException e) {
+				} catch (final MalformedURLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
@@ -116,28 +118,43 @@ public class AboutDialog extends JDialog {
 				case CONNECTION_ERROR:
 					JOptionPane
 							.showMessageDialog(
-									btnNewButton,
+									AboutDialog.this.btnNewButton,
 									"The site may be down or you\n"
 											+ "may be experiencing connection problems",
 									"Connection Error",
 									JOptionPane.WARNING_MESSAGE);
 					break;
 				case NEW_VERSION:
-					DownloadOptionDialog confirmDL = new DownloadOptionDialog();
+					final DownloadOptionDialog confirmDL = new DownloadOptionDialog();
 					confirmDL.setVisible(true);
 					break;
 				case OTHER_ERROR:
-					JOptionPane.showMessageDialog(btnNewButton,
+					JOptionPane.showMessageDialog(AboutDialog.this.btnNewButton,
 							"There was a problem during the update check.",
 							"Error", JOptionPane.ERROR_MESSAGE);
 					break;
 				case VERSION_CURRENT:
-					JOptionPane.showMessageDialog(btnNewButton,
+					JOptionPane.showMessageDialog(AboutDialog.this.btnNewButton,
 							"This is the current version", "No Update",
 							JOptionPane.INFORMATION_MESSAGE);
 					break;
+				case VERSION_HIGHER_THAN_RELEASE:
+					JOptionPane.showMessageDialog(
+							AboutDialog.this.btnNewButton,
+							"This version is higher than the current release!\n"
+									+ "No update needed.", "No Update",
+							JOptionPane.INFORMATION_MESSAGE);
+					break;
+				case SNAPSHOT_VERSION:
+					JOptionPane
+							.showMessageDialog(
+									AboutDialog.this.btnNewButton,
+									"This is a SNAPSHOT (development) version.",
+									"Snapshot Version",
+									JOptionPane.INFORMATION_MESSAGE);
+					break;
 				default:
-					JOptionPane.showMessageDialog(btnNewButton,
+					JOptionPane.showMessageDialog(AboutDialog.this.btnNewButton,
 							"This is the current version", "No Update",
 							JOptionPane.INFORMATION_MESSAGE);
 					break;
@@ -145,12 +162,12 @@ public class AboutDialog extends JDialog {
 				}
 			}
 		});
-		btnNewButton.setBounds(256, 253, 176, 36);
-		panel.add(btnNewButton);
+		this.btnNewButton.setBounds(256, 253, 176, 36);
+		panel.add(this.btnNewButton);
 
 	}
 
 	protected JButton getBtnNewButton() {
-		return btnNewButton;
+		return this.btnNewButton;
 	}
 }

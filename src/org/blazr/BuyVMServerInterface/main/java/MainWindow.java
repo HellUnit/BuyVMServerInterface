@@ -26,8 +26,67 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class MainWindow {
+	protected static void defaultText(final boolean defaultsNotify) {
+		if (!defaultsNotify) {
+			MainWindow.txtpnServerStatusGui.setText("BuyVM Server Interface v" + MainWindow.version
+					+ "\r\nDeveloped" + " by Antony Prince\r\nJanuary"
+					+ " 2014\r\nhttp://blazr.no-ip.org");
+		} else {
+			MainWindow.txtpnServerStatusGui.setText("BuyVM Server Interface v" + MainWindow.version
+					+ "\r\nDeveloped" + " by Antony Prince\r\nJanuary"
+					+ " 2014\r\nhttp://blazr.no-ip.org\n" + "WARNING!!!\n"
+					+ "Default values detected. Please set hash & key to"
+					+ " your info.");
+		}
+	}
+	protected static void disableAll(final boolean setKeyDisabled) {
+		MainWindow.getBtnNewButton().setEnabled(false);
+		// getBtnNewButton_1().setEnabled(false);
+		MainWindow.getBtnNewButton_2().setEnabled(false);
+		MainWindow.getBtnNewButton_3().setEnabled(false);
+		if (setKeyDisabled) {
+			MainWindow.getBtnNewButton_4().setEnabled(false);
+		}
+	}
+	protected static void enableAll(final boolean setKeyOnly) {
+		if (setKeyOnly) {
+			MainWindow.getBtnNewButton_4().setEnabled(true);
+		} else {
+			MainWindow.getBtnNewButton().setEnabled(true);
+			// getBtnNewButton_1().setEnabled(true);
+			MainWindow.getBtnNewButton_2().setEnabled(true);
+			MainWindow.getBtnNewButton_3().setEnabled(true);
+			MainWindow.getBtnNewButton_4().setEnabled(true);
+		}
+	}
+	protected static JButton getBtnNewButton() {
+		return MainWindow.btnNewButton;
+	}
+	protected static JButton getBtnNewButton_1() {
+		return MainWindow.btnNewButton_1;
+	}
+	protected static JButton getBtnNewButton_2() {
+		return MainWindow.btnNewButton_2;
+	}
+	protected static JButton getBtnNewButton_3() {
+		return MainWindow.btnNewButton_3;
+	}
+	protected static JButton getBtnNewButton_4() {
+		return MainWindow.btnNewButton_4;
+	}
+	protected static JTextArea getTxtpnServerStatusGui() {
+		return MainWindow.txtpnServerStatusGui;
+	}
+	protected static boolean hasDefaults() {
+		boolean hasDefaults = false;
+		if (MainWindow.key.contentEquals("EXAMP-LEKEY-XXXXX")
+				|| MainWindow.hash.contentEquals("XXXXXXXXXXXXXXXXXXXX")) {
+			hasDefaults = true;
+		}
+		return hasDefaults;
+	}
 	private JFrame frmServerStatus;
-	protected final static String version = "1.0.0";
+	protected final static String version = "1.0.1-SNAPSHOT";
 	protected static String key = "";
 	protected static String hash = "";
 	private final static String infoFileLoc = "." + File.separator
@@ -35,33 +94,43 @@ public class MainWindow {
 	private static JButton btnNewButton;
 	private static JButton btnNewButton_1;
 	private static JButton btnNewButton_4;
+
 	private static JButton btnNewButton_2;
+
 	private static JButton btnNewButton_3;
+
 	protected static Operations ops = new Operations();
+
 	private JCheckBox chckbxNewCheckBox_1;
+
 	private JCheckBox chckbxNewCheckBox_2;
+
 	private JCheckBox chckbxNewCheckBox;
+
 	private JCheckBox chckbxStatus;
+
 	private static JTextArea txtpnServerStatusGui;
-	private JCheckBox chckbxAllIps;
-	private JScrollPane scrollPane;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	public static void main(final String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			@Override
 			public void run() {
 				try {
-					MainWindow window = new MainWindow();
+					final MainWindow window = new MainWindow();
 					window.frmServerStatus.setVisible(true);
-				} catch (Exception e) {
+				} catch (final Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});
 	}
+
+	private JCheckBox chckbxAllIps;
+
+	private JScrollPane scrollPane;
 
 	/**
 	 * Create the application.
@@ -70,240 +139,24 @@ public class MainWindow {
 		initialize();
 	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
-	private void initialize() {
-		frmServerStatus = new JFrame();
-		frmServerStatus.setResizable(false);
-		frmServerStatus.setTitle("BuyVM Server Interface");
-		frmServerStatus.setBounds(100, 100, 600, 420);
-		frmServerStatus.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frmServerStatus.getContentPane().setLayout(null);
-		btnNewButton = new JButton("Start Server");
-		btnNewButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnNewButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				startThread(1);
-			}
-		});
-		btnNewButton.setBounds(12, 39, 131, 37);
-		frmServerStatus.getContentPane().add(btnNewButton);
-
-		btnNewButton_1 = new JButton("Reboot Server");
-		btnNewButton_1
-				.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnNewButton_1.setEnabled(false);
-		btnNewButton_1.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				startThread(2);
-			}
-		});
-		btnNewButton_1.setBounds(12, 89, 131, 37);
-		frmServerStatus.getContentPane().add(btnNewButton_1);
-
-		btnNewButton_2 = new JButton("Stop Server");
-		btnNewButton_2
-				.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnNewButton_2.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				startThread(3);
-			}
-		});
-		btnNewButton_2.setBounds(155, 39, 131, 37);
-		frmServerStatus.getContentPane().add(btnNewButton_2);
-
-		btnNewButton_3 = new JButton("Server Info");
-		btnNewButton_3
-				.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnNewButton_3.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				startThread(4);
-			}
-		});
-		btnNewButton_3.setBounds(155, 89, 131, 37);
-		frmServerStatus.getContentPane().add(btnNewButton_3);
-
-		btnNewButton_4 = new JButton("Set Key/Hash");
-		btnNewButton_4
-				.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnNewButton_4.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				SetKeyHashDialog dialog = new SetKeyHashDialog();
-				dialog.setVisible(true);
-			}
-		});
-		btnNewButton_4.setBounds(12, 139, 131, 37);
-		frmServerStatus.getContentPane().add(btnNewButton_4);
-
-		JPanel panel = new JPanel();
-		panel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		panel.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null,
-				null));
-		panel.setBounds(401, 39, 183, 137);
-		frmServerStatus.getContentPane().add(panel);
-		panel.setLayout(null);
-
-		chckbxNewCheckBox_1 = new JCheckBox("HDD");
-		chckbxNewCheckBox_1.setSelected(true);
-		chckbxNewCheckBox_1.setBounds(8, 9, 114, 25);
-		panel.add(chckbxNewCheckBox_1);
-
-		chckbxNewCheckBox_2 = new JCheckBox("Bandwidth");
-		chckbxNewCheckBox_2.setSelected(true);
-		chckbxNewCheckBox_2.setBounds(8, 39, 113, 25);
-		panel.add(chckbxNewCheckBox_2);
-
-		chckbxNewCheckBox = new JCheckBox("Memory");
-		chckbxNewCheckBox.setSelected(true);
-		chckbxNewCheckBox.setBounds(8, 73, 113, 25);
-		panel.add(chckbxNewCheckBox);
-
-		chckbxStatus = new JCheckBox("Status");
-		chckbxStatus.setSelected(true);
-		chckbxStatus.setBounds(8, 103, 83, 25);
-		panel.add(chckbxStatus);
-
-		chckbxAllIps = new JCheckBox("All IP's");
-		chckbxAllIps.setBounds(95, 103, 80, 25);
-		panel.add(chckbxAllIps);
-
-		scrollPane = new JScrollPane();
-		scrollPane.setBounds(14, 189, 570, 185);
-		frmServerStatus.getContentPane().add(scrollPane);
-
-		txtpnServerStatusGui = new JTextArea();
-		scrollPane.setViewportView(txtpnServerStatusGui);
-		txtpnServerStatusGui.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		txtpnServerStatusGui.setWrapStyleWord(true);
-		txtpnServerStatusGui.setLineWrap(true);
-		txtpnServerStatusGui.setEditable(false);
-
-		JMenuBar menuBar = new JMenuBar();
-		menuBar.setBounds(0, 0, 594, 26);
-		frmServerStatus.getContentPane().add(menuBar);
-
-		JMenu mnFile = new JMenu("File");
-		menuBar.add(mnFile);
-
-		JMenuItem mntmExit = new JMenuItem("Exit");
-		mntmExit.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				System.exit(0);
-			}
-		});
-		mnFile.add(mntmExit);
-
-		JMenu mnAbout = new JMenu("About");
-		mnAbout.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				AboutDialog dialog = new AboutDialog();
-				dialog.setLocationRelativeTo(txtpnServerStatusGui);
-				dialog.setVisible(true);
-			}
-		});
-		mnAbout.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				AboutDialog dialog = new AboutDialog();
-				dialog.setVisible(true);
-			}
-		});
-		menuBar.add(mnAbout);
-		frmServerStatus.getContentPane().setFocusTraversalPolicy(
-				new FocusTraversalOnArray(new Component[] { btnNewButton,
-						btnNewButton_2, btnNewButton_3, btnNewButton_4,
-						chckbxNewCheckBox_1, chckbxNewCheckBox_2,
-						chckbxNewCheckBox, chckbxStatus, chckbxAllIps }));
-		frmServerStatus.setFocusTraversalPolicy(new FocusTraversalOnArray(
-				new Component[] { btnNewButton, btnNewButton_2, btnNewButton_3,
-						btnNewButton_4, chckbxNewCheckBox_1,
-						chckbxNewCheckBox_2, chckbxNewCheckBox, chckbxStatus,
-						chckbxAllIps }));
-		try {
-			File infoFile = new File(infoFileLoc);
-			boolean fileCreated;
-
-			fileCreated = infoFile.createNewFile();
-
-			if (fileCreated) {
-				ops.writeKeyHash("EXAMP-LEKEY-XXXXX", "XXXXXXXXXXXXXXXXXXXX");
-			} else {
-				String sCurrentLine;
-				BufferedReader br1 = new BufferedReader(new FileReader("."
-						+ File.separator + "infoFile.txt"));
-				while ((sCurrentLine = br1.readLine()) != null) {
-					if (sCurrentLine.startsWith("Key:")) {
-						key = sCurrentLine.substring(
-								sCurrentLine.indexOf(":") + 1).trim();
-					} else if (sCurrentLine.startsWith("Hash:")) {
-						hash = sCurrentLine.substring(
-								sCurrentLine.indexOf(":") + 1).trim();
-					} else {
-						getTxtpnServerStatusGui().setText(
-								"Invalid Data in infoFile.txt\n" + "\""
-										+ sCurrentLine + "\" is invalid.");
-					}
-				}
-				br1.close();
-			}
-			if (hasDefaults()) {
-				defaultText(true);
-				disableAll(false);
-			} else {
-				defaultText(false);
-				enableAll(false);
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-			MainWindow.getTxtpnServerStatusGui().setText(
-					e.getStackTrace()[0].toString() + "\n"
-							+ e.getStackTrace()[1].toString() + "\n"
-							+ e.getStackTrace()[2].toString());
-		}
+	protected JCheckBox getChckbxAllIps() {
+		return this.chckbxAllIps;
 	}
 
-	protected static void defaultText(boolean defaultsNotify) {
-		if (!defaultsNotify) {
-			txtpnServerStatusGui.setText("BuyVM Server Interface v" + version
-					+ "\r\nDeveloped" + " by Antony Prince\r\nJanuary"
-					+ " 2014\r\nhttp://blazr.no-ip.org");
-		} else {
-			txtpnServerStatusGui.setText("BuyVM Server Interface v" + version
-					+ "\r\nDeveloped" + " by Antony Prince\r\nJanuary"
-					+ " 2014\r\nhttp://blazr.no-ip.org\n" + "WARNING!!!\n"
-					+ "Default values detected. Please set hash & key to"
-					+ " your info.");
-		}
+	protected JCheckBox getChckbxNewCheckBox() {
+		return this.chckbxNewCheckBox;
 	}
 
-	protected static void disableAll(boolean setKeyDisabled) {
-		getBtnNewButton().setEnabled(false);
-		// getBtnNewButton_1().setEnabled(false);
-		getBtnNewButton_2().setEnabled(false);
-		getBtnNewButton_3().setEnabled(false);
-		if (setKeyDisabled) {
-			getBtnNewButton_4().setEnabled(false);
-		}
+	protected JCheckBox getChckbxNewCheckBox_1() {
+		return this.chckbxNewCheckBox_1;
 	}
 
-	protected static void enableAll(boolean setKeyOnly) {
-		if (setKeyOnly) {
-			getBtnNewButton_4().setEnabled(true);
-		} else {
-			getBtnNewButton().setEnabled(true);
-			// getBtnNewButton_1().setEnabled(true);
-			getBtnNewButton_2().setEnabled(true);
-			getBtnNewButton_3().setEnabled(true);
-			getBtnNewButton_4().setEnabled(true);
-		}
+	protected JCheckBox getChckbxNewCheckBox_2() {
+		return this.chckbxNewCheckBox_2;
+	}
+
+	protected JCheckBox getChckbxStatus() {
+		return this.chckbxStatus;
 	}
 
 	private String getExtraOptions() {
@@ -326,9 +179,209 @@ public class MainWindow {
 		return extraOptions;
 	}
 
-	private void startThread(int type) {
-		ops.startWaitThread();
-		DataThread thread = new DataThread();
+	/**
+	 * Initialize the contents of the frame.
+	 */
+	private void initialize() {
+		this.frmServerStatus = new JFrame();
+		this.frmServerStatus.setResizable(false);
+		this.frmServerStatus.setTitle("BuyVM Server Interface");
+		this.frmServerStatus.setBounds(100, 100, 600, 420);
+		this.frmServerStatus.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.frmServerStatus.getContentPane().setLayout(null);
+		MainWindow.btnNewButton = new JButton("Start Server");
+		MainWindow.btnNewButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		MainWindow.btnNewButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(final ActionEvent arg0) {
+				startThread(1);
+			}
+		});
+		MainWindow.btnNewButton.setBounds(12, 39, 131, 37);
+		this.frmServerStatus.getContentPane().add(MainWindow.btnNewButton);
+
+		MainWindow.btnNewButton_1 = new JButton("Reboot Server");
+		MainWindow.btnNewButton_1
+				.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		MainWindow.btnNewButton_1.setEnabled(false);
+		MainWindow.btnNewButton_1.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(final ActionEvent e) {
+				startThread(2);
+			}
+		});
+		MainWindow.btnNewButton_1.setBounds(12, 89, 131, 37);
+		this.frmServerStatus.getContentPane().add(MainWindow.btnNewButton_1);
+
+		MainWindow.btnNewButton_2 = new JButton("Stop Server");
+		MainWindow.btnNewButton_2
+				.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		MainWindow.btnNewButton_2.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(final ActionEvent e) {
+				startThread(3);
+			}
+		});
+		MainWindow.btnNewButton_2.setBounds(155, 39, 131, 37);
+		this.frmServerStatus.getContentPane().add(MainWindow.btnNewButton_2);
+
+		MainWindow.btnNewButton_3 = new JButton("Server Info");
+		MainWindow.btnNewButton_3
+				.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		MainWindow.btnNewButton_3.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(final ActionEvent arg0) {
+				startThread(4);
+			}
+		});
+		MainWindow.btnNewButton_3.setBounds(155, 89, 131, 37);
+		this.frmServerStatus.getContentPane().add(MainWindow.btnNewButton_3);
+
+		MainWindow.btnNewButton_4 = new JButton("Set Key/Hash");
+		MainWindow.btnNewButton_4
+				.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		MainWindow.btnNewButton_4.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(final ActionEvent arg0) {
+				final SetKeyHashDialog dialog = new SetKeyHashDialog();
+				dialog.setVisible(true);
+			}
+		});
+		MainWindow.btnNewButton_4.setBounds(12, 139, 131, 37);
+		this.frmServerStatus.getContentPane().add(MainWindow.btnNewButton_4);
+
+		final JPanel panel = new JPanel();
+		panel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		panel.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null,
+				null));
+		panel.setBounds(401, 39, 183, 137);
+		this.frmServerStatus.getContentPane().add(panel);
+		panel.setLayout(null);
+
+		this.chckbxNewCheckBox_1 = new JCheckBox("HDD");
+		this.chckbxNewCheckBox_1.setSelected(true);
+		this.chckbxNewCheckBox_1.setBounds(8, 9, 114, 25);
+		panel.add(this.chckbxNewCheckBox_1);
+
+		this.chckbxNewCheckBox_2 = new JCheckBox("Bandwidth");
+		this.chckbxNewCheckBox_2.setSelected(true);
+		this.chckbxNewCheckBox_2.setBounds(8, 39, 113, 25);
+		panel.add(this.chckbxNewCheckBox_2);
+
+		this.chckbxNewCheckBox = new JCheckBox("Memory");
+		this.chckbxNewCheckBox.setSelected(true);
+		this.chckbxNewCheckBox.setBounds(8, 73, 113, 25);
+		panel.add(this.chckbxNewCheckBox);
+
+		this.chckbxStatus = new JCheckBox("Status");
+		this.chckbxStatus.setSelected(true);
+		this.chckbxStatus.setBounds(8, 103, 83, 25);
+		panel.add(this.chckbxStatus);
+
+		this.chckbxAllIps = new JCheckBox("All IP's");
+		this.chckbxAllIps.setBounds(95, 103, 80, 25);
+		panel.add(this.chckbxAllIps);
+
+		this.scrollPane = new JScrollPane();
+		this.scrollPane.setBounds(14, 189, 570, 185);
+		this.frmServerStatus.getContentPane().add(this.scrollPane);
+
+		MainWindow.txtpnServerStatusGui = new JTextArea();
+		this.scrollPane.setViewportView(MainWindow.txtpnServerStatusGui);
+		MainWindow.txtpnServerStatusGui.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		MainWindow.txtpnServerStatusGui.setWrapStyleWord(true);
+		MainWindow.txtpnServerStatusGui.setLineWrap(true);
+		MainWindow.txtpnServerStatusGui.setEditable(false);
+
+		final JMenuBar menuBar = new JMenuBar();
+		menuBar.setBounds(0, 0, 594, 26);
+		this.frmServerStatus.getContentPane().add(menuBar);
+
+		final JMenu mnFile = new JMenu("File");
+		menuBar.add(mnFile);
+
+		final JMenuItem mntmExit = new JMenuItem("Exit");
+		mntmExit.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(final ActionEvent arg0) {
+				System.exit(0);
+			}
+		});
+		mnFile.add(mntmExit);
+
+		final JMenu mnAbout = new JMenu("About");
+		mnAbout.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(final MouseEvent arg0) {
+				final AboutDialog dialog = new AboutDialog();
+				dialog.setLocationRelativeTo(MainWindow.txtpnServerStatusGui);
+				dialog.setVisible(true);
+			}
+		});
+		mnAbout.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(final ActionEvent arg0) {
+				final AboutDialog dialog = new AboutDialog();
+				dialog.setVisible(true);
+			}
+		});
+		menuBar.add(mnAbout);
+		this.frmServerStatus.getContentPane().setFocusTraversalPolicy(
+				new FocusTraversalOnArray(new Component[] { MainWindow.btnNewButton,
+						MainWindow.btnNewButton_2, MainWindow.btnNewButton_3, MainWindow.btnNewButton_4,
+						this.chckbxNewCheckBox_1, this.chckbxNewCheckBox_2,
+						this.chckbxNewCheckBox, this.chckbxStatus, this.chckbxAllIps }));
+		this.frmServerStatus.setFocusTraversalPolicy(new FocusTraversalOnArray(
+				new Component[] { MainWindow.btnNewButton, MainWindow.btnNewButton_2, MainWindow.btnNewButton_3,
+						MainWindow.btnNewButton_4, this.chckbxNewCheckBox_1,
+						this.chckbxNewCheckBox_2, this.chckbxNewCheckBox, this.chckbxStatus,
+						this.chckbxAllIps }));
+		try {
+			final File infoFile = new File(MainWindow.infoFileLoc);
+			boolean fileCreated;
+
+			fileCreated = infoFile.createNewFile();
+
+			if (fileCreated) {
+				MainWindow.ops.writeKeyHash("EXAMP-LEKEY-XXXXX", "XXXXXXXXXXXXXXXXXXXX");
+			} else {
+				String sCurrentLine;
+				final BufferedReader br1 = new BufferedReader(new FileReader("."
+						+ File.separator + "infoFile.txt"));
+				while ((sCurrentLine = br1.readLine()) != null) {
+					if (sCurrentLine.startsWith("Key:")) {
+						MainWindow.key = sCurrentLine.substring(
+								sCurrentLine.indexOf(":") + 1).trim();
+					} else if (sCurrentLine.startsWith("Hash:")) {
+						MainWindow.hash = sCurrentLine.substring(
+								sCurrentLine.indexOf(":") + 1).trim();
+					} else {
+						MainWindow.getTxtpnServerStatusGui().setText(
+								"Invalid Data in infoFile.txt\n" + "\""
+										+ sCurrentLine + "\" is invalid.");
+					}
+				}
+				br1.close();
+			}
+			if (MainWindow.hasDefaults()) {
+				MainWindow.defaultText(true);
+				MainWindow.disableAll(false);
+			} else {
+				MainWindow.defaultText(false);
+				MainWindow.enableAll(false);
+			}
+		} catch (final IOException e) {
+			e.printStackTrace();
+			MainWindow.getTxtpnServerStatusGui().setText(
+					e.getStackTrace()[0].toString() + "\n"
+							+ e.getStackTrace()[1].toString() + "\n"
+							+ e.getStackTrace()[2].toString());
+		}
+	}
+
+	private void startThread(final int type) {
+		MainWindow.ops.startWaitThread();
+		final DataThread thread = new DataThread();
 		switch (type) {
 		case 1:
 			thread.args = "?key=" + MainWindow.key + "&hash=" + MainWindow.hash
@@ -352,58 +405,5 @@ public class MainWindow {
 			break;
 		}
 		thread.start();
-	}
-
-	protected static boolean hasDefaults() {
-		boolean hasDefaults = false;
-		if (key.contentEquals("EXAMP-LEKEY-XXXXX")
-				|| hash.contentEquals("XXXXXXXXXXXXXXXXXXXX")) {
-			hasDefaults = true;
-		}
-		return hasDefaults;
-	}
-
-	protected static JTextArea getTxtpnServerStatusGui() {
-		return txtpnServerStatusGui;
-	}
-
-	protected static JButton getBtnNewButton() {
-		return btnNewButton;
-	}
-
-	protected static JButton getBtnNewButton_1() {
-		return btnNewButton_1;
-	}
-
-	protected static JButton getBtnNewButton_4() {
-		return btnNewButton_4;
-	}
-
-	protected static JButton getBtnNewButton_2() {
-		return btnNewButton_2;
-	}
-
-	protected static JButton getBtnNewButton_3() {
-		return btnNewButton_3;
-	}
-
-	protected JCheckBox getChckbxNewCheckBox_1() {
-		return chckbxNewCheckBox_1;
-	}
-
-	protected JCheckBox getChckbxNewCheckBox_2() {
-		return chckbxNewCheckBox_2;
-	}
-
-	protected JCheckBox getChckbxNewCheckBox() {
-		return chckbxNewCheckBox;
-	}
-
-	protected JCheckBox getChckbxStatus() {
-		return chckbxStatus;
-	}
-
-	protected JCheckBox getChckbxAllIps() {
-		return chckbxAllIps;
 	}
 }

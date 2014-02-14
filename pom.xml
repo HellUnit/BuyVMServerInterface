@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.blazr</groupId>
   <artifactId>BuyVMServerInterface</artifactId>
-  <version>1.0.0</version>
+  <version>1.0.1-SNAPSHOT</version>
   <name>BuyVMServerInterface</name>
   <description>For checking status of and  issuing boot-shutdown commands to, a BuyVM VPS</description>
 	<build>
@@ -16,14 +16,6 @@
 					<encoding>UTF-8</encoding>
 					<source>1.6</source>
 					<target>1.6</target>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-resources-plugin</artifactId>
-				<version>2.6</version>
-				<configuration>
-					<encoding>UTF-8</encoding>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -51,7 +43,7 @@
                     </configuration>
                   </execution>
                 </executions>
-              </plugin>
+            </plugin>
 		  </plugins>
 	</build>
 	<repositories>
@@ -74,7 +66,7 @@
 		<dependency>
             <groupId>org.blazr</groupId>
             <artifactId>Updater</artifactId>
-            <version>1.0.6</version>
+            <version>1.0.7-SNAPSHOT</version>
         </dependency>
 	</dependencies>
 </project>
