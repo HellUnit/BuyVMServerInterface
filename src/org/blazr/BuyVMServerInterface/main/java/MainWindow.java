@@ -14,31 +14,42 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.border.BevelBorder;
+
 import java.awt.Font;
+
 import javax.swing.JScrollPane;
+
 import java.awt.Cursor;
+
+import org.blazr.Updater.main.java.AboutDialog;
 import org.eclipse.wb.swing.FocusTraversalOnArray;
+
 import java.awt.Component;
+
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class MainWindow {
 	protected static void defaultText(final boolean defaultsNotify) {
 		if (!defaultsNotify) {
-			MainWindow.txtpnServerStatusGui.setText("BuyVM Server Interface v" + MainWindow.version
-					+ "\r\nDeveloped" + " by Antony Prince\r\nJanuary"
+			MainWindow.txtpnServerStatusGui.setText("BuyVM Server Interface v"
+					+ MainWindow.version + "\r\nDeveloped"
+					+ " by Antony Prince\r\nJanuary"
 					+ " 2014\r\nhttp://blazr.no-ip.org");
 		} else {
-			MainWindow.txtpnServerStatusGui.setText("BuyVM Server Interface v" + MainWindow.version
-					+ "\r\nDeveloped" + " by Antony Prince\r\nJanuary"
+			MainWindow.txtpnServerStatusGui.setText("BuyVM Server Interface v"
+					+ MainWindow.version + "\r\nDeveloped"
+					+ " by Antony Prince\r\nJanuary"
 					+ " 2014\r\nhttp://blazr.no-ip.org\n" + "WARNING!!!\n"
 					+ "Default values detected. Please set hash & key to"
 					+ " your info.");
 		}
 	}
+
 	protected static void disableAll(final boolean setKeyDisabled) {
 		MainWindow.getBtnNewButton().setEnabled(false);
 		// getBtnNewButton_1().setEnabled(false);
@@ -48,6 +59,7 @@ public class MainWindow {
 			MainWindow.getBtnNewButton_4().setEnabled(false);
 		}
 	}
+
 	protected static void enableAll(final boolean setKeyOnly) {
 		if (setKeyOnly) {
 			MainWindow.getBtnNewButton_4().setEnabled(true);
@@ -59,24 +71,31 @@ public class MainWindow {
 			MainWindow.getBtnNewButton_4().setEnabled(true);
 		}
 	}
+
 	protected static JButton getBtnNewButton() {
 		return MainWindow.btnNewButton;
 	}
+
 	protected static JButton getBtnNewButton_1() {
 		return MainWindow.btnNewButton_1;
 	}
+
 	protected static JButton getBtnNewButton_2() {
 		return MainWindow.btnNewButton_2;
 	}
+
 	protected static JButton getBtnNewButton_3() {
 		return MainWindow.btnNewButton_3;
 	}
+
 	protected static JButton getBtnNewButton_4() {
 		return MainWindow.btnNewButton_4;
 	}
+
 	protected static JTextArea getTxtpnServerStatusGui() {
 		return MainWindow.txtpnServerStatusGui;
 	}
+
 	protected static boolean hasDefaults() {
 		boolean hasDefaults = false;
 		if (MainWindow.key.contentEquals("EXAMP-LEKEY-XXXXX")
@@ -85,6 +104,7 @@ public class MainWindow {
 		}
 		return hasDefaults;
 	}
+
 	private JFrame frmServerStatus;
 	protected final static String version = "1.0.1-SNAPSHOT";
 	protected static String key = "";
@@ -190,7 +210,8 @@ public class MainWindow {
 		this.frmServerStatus.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.frmServerStatus.getContentPane().setLayout(null);
 		MainWindow.btnNewButton = new JButton("Start Server");
-		MainWindow.btnNewButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		MainWindow.btnNewButton.setCursor(Cursor
+				.getPredefinedCursor(Cursor.HAND_CURSOR));
 		MainWindow.btnNewButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(final ActionEvent arg0) {
@@ -201,8 +222,8 @@ public class MainWindow {
 		this.frmServerStatus.getContentPane().add(MainWindow.btnNewButton);
 
 		MainWindow.btnNewButton_1 = new JButton("Reboot Server");
-		MainWindow.btnNewButton_1
-				.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		MainWindow.btnNewButton_1.setCursor(Cursor
+				.getPredefinedCursor(Cursor.HAND_CURSOR));
 		MainWindow.btnNewButton_1.setEnabled(false);
 		MainWindow.btnNewButton_1.addActionListener(new ActionListener() {
 			@Override
@@ -214,8 +235,8 @@ public class MainWindow {
 		this.frmServerStatus.getContentPane().add(MainWindow.btnNewButton_1);
 
 		MainWindow.btnNewButton_2 = new JButton("Stop Server");
-		MainWindow.btnNewButton_2
-				.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		MainWindow.btnNewButton_2.setCursor(Cursor
+				.getPredefinedCursor(Cursor.HAND_CURSOR));
 		MainWindow.btnNewButton_2.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(final ActionEvent e) {
@@ -226,8 +247,8 @@ public class MainWindow {
 		this.frmServerStatus.getContentPane().add(MainWindow.btnNewButton_2);
 
 		MainWindow.btnNewButton_3 = new JButton("Server Info");
-		MainWindow.btnNewButton_3
-				.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		MainWindow.btnNewButton_3.setCursor(Cursor
+				.getPredefinedCursor(Cursor.HAND_CURSOR));
 		MainWindow.btnNewButton_3.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(final ActionEvent arg0) {
@@ -238,8 +259,8 @@ public class MainWindow {
 		this.frmServerStatus.getContentPane().add(MainWindow.btnNewButton_3);
 
 		MainWindow.btnNewButton_4 = new JButton("Set Key/Hash");
-		MainWindow.btnNewButton_4
-				.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		MainWindow.btnNewButton_4.setCursor(Cursor
+				.getPredefinedCursor(Cursor.HAND_CURSOR));
 		MainWindow.btnNewButton_4.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(final ActionEvent arg0) {
@@ -288,7 +309,8 @@ public class MainWindow {
 
 		MainWindow.txtpnServerStatusGui = new JTextArea();
 		this.scrollPane.setViewportView(MainWindow.txtpnServerStatusGui);
-		MainWindow.txtpnServerStatusGui.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		MainWindow.txtpnServerStatusGui.setFont(new Font("Tahoma", Font.PLAIN,
+				15));
 		MainWindow.txtpnServerStatusGui.setWrapStyleWord(true);
 		MainWindow.txtpnServerStatusGui.setLineWrap(true);
 		MainWindow.txtpnServerStatusGui.setEditable(false);
@@ -314,7 +336,11 @@ public class MainWindow {
 			@Override
 			public void mouseClicked(final MouseEvent arg0) {
 				final AboutDialog dialog = new AboutDialog();
-				dialog.setLocationRelativeTo(MainWindow.txtpnServerStatusGui);
+				dialog.setProgramName("BuyVMServerInterface");
+				dialog.setText("BuyVM Server Interface", MainWindow.version);
+				dialog.setProgramVersion(MainWindow.version);
+				dialog.setExeDownloadEnabled(false);
+				dialog.setLocationRelativeTo(menuBar);
 				dialog.setVisible(true);
 			}
 		});
@@ -322,20 +348,28 @@ public class MainWindow {
 			@Override
 			public void actionPerformed(final ActionEvent arg0) {
 				final AboutDialog dialog = new AboutDialog();
+				dialog.setProgramName("BuyVMServerInterface");
+				dialog.setText("BuyVM Server Interface", MainWindow.version);
+				dialog.setProgramVersion(MainWindow.version);
+				dialog.setExeDownloadEnabled(false);
+				dialog.setLocationRelativeTo(menuBar);
 				dialog.setVisible(true);
 			}
 		});
 		menuBar.add(mnAbout);
 		this.frmServerStatus.getContentPane().setFocusTraversalPolicy(
-				new FocusTraversalOnArray(new Component[] { MainWindow.btnNewButton,
-						MainWindow.btnNewButton_2, MainWindow.btnNewButton_3, MainWindow.btnNewButton_4,
+				new FocusTraversalOnArray(new Component[] {
+						MainWindow.btnNewButton, MainWindow.btnNewButton_2,
+						MainWindow.btnNewButton_3, MainWindow.btnNewButton_4,
 						this.chckbxNewCheckBox_1, this.chckbxNewCheckBox_2,
-						this.chckbxNewCheckBox, this.chckbxStatus, this.chckbxAllIps }));
-		this.frmServerStatus.setFocusTraversalPolicy(new FocusTraversalOnArray(
-				new Component[] { MainWindow.btnNewButton, MainWindow.btnNewButton_2, MainWindow.btnNewButton_3,
-						MainWindow.btnNewButton_4, this.chckbxNewCheckBox_1,
-						this.chckbxNewCheckBox_2, this.chckbxNewCheckBox, this.chckbxStatus,
+						this.chckbxNewCheckBox, this.chckbxStatus,
 						this.chckbxAllIps }));
+		this.frmServerStatus.setFocusTraversalPolicy(new FocusTraversalOnArray(
+				new Component[] { MainWindow.btnNewButton,
+						MainWindow.btnNewButton_2, MainWindow.btnNewButton_3,
+						MainWindow.btnNewButton_4, this.chckbxNewCheckBox_1,
+						this.chckbxNewCheckBox_2, this.chckbxNewCheckBox,
+						this.chckbxStatus, this.chckbxAllIps }));
 		try {
 			final File infoFile = new File(MainWindow.infoFileLoc);
 			boolean fileCreated;
@@ -343,11 +377,12 @@ public class MainWindow {
 			fileCreated = infoFile.createNewFile();
 
 			if (fileCreated) {
-				MainWindow.ops.writeKeyHash("EXAMP-LEKEY-XXXXX", "XXXXXXXXXXXXXXXXXXXX");
+				MainWindow.ops.writeKeyHash("EXAMP-LEKEY-XXXXX",
+						"XXXXXXXXXXXXXXXXXXXX");
 			} else {
 				String sCurrentLine;
-				final BufferedReader br1 = new BufferedReader(new FileReader("."
-						+ File.separator + "infoFile.txt"));
+				final BufferedReader br1 = new BufferedReader(new FileReader(
+						"." + File.separator + "infoFile.txt"));
 				while ((sCurrentLine = br1.readLine()) != null) {
 					if (sCurrentLine.startsWith("Key:")) {
 						MainWindow.key = sCurrentLine.substring(
