@@ -106,7 +106,7 @@ public class MainWindow {
 	}
 
 	private JFrame frmServerStatus;
-	protected final static String version = "1.0.1-SNAPSHOT";
+	protected final static String version = "1.0.1";
 	protected static String key = "";
 	protected static String hash = "";
 	private final static String infoFileLoc = "." + File.separator
@@ -339,7 +339,7 @@ public class MainWindow {
 				dialog.setProgramName("BuyVMServerInterface");
 				dialog.setText("BuyVM Server Interface", MainWindow.version);
 				dialog.setProgramVersion(MainWindow.version);
-				dialog.setExeDownloadEnabled(false);
+				dialog.setExeDownloadEnabled(true);
 				dialog.setLocationRelativeTo(menuBar);
 				dialog.setVisible(true);
 			}
