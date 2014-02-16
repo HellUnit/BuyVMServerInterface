@@ -48,17 +48,17 @@
 	</build>
 	<repositories>
 		<repository>
-			<id>antony-repo</id>
+			<id>antony-repo-private</id>
 			<url>http://blazr.no-ip.org:8082/content/repositories/private-releases/</url>
 		</repository>
 	</repositories>
 	<distributionManagement>
         <repository>
-            <id>antony-repo</id>
+            <id>antony-repo-public-releases</id>
             <url>http://blazr.no-ip.org:8082/content/repositories/releases/</url>
         </repository>
         <snapshotRepository>
-            <id>antony-repo</id>
+            <id>antony-repo-public-snapshots</id>
             <url>http://blazr.no-ip.org:8082/content/repositories/snapshots/</url>
         </snapshotRepository>
     </distributionManagement>
