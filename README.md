@@ -10,5 +10,5 @@ BuyVMServerInterface
 - You must set a key & hash before the other buttons on the interface will become enabled
 - There is a 30 second wait after performing an operation to prevent abuse (this is why the buttons are greyed out after clicking one)
 <br />
-- You can contact me by e-mail at: <a href=mailto:antony@blazrsoft.com>antonyblazrsoft.com</a>
+- You can contact me by e-mail at: <a href=mailto:antony@blazrsoft.com>antony@blazrsoft.com</a>
 - Please send all bug reports to: <a href=mailto:bugs@blazr.no-ip.org>bugs@blazr.no-ip.org</a> with "BuyVMServerInterface" as the subject line
